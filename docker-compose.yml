@@ -1,9 +1,19 @@
 version: '2'
 services:
+  db:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+  apollo:
+    image: penhalver/apache-apollo
   app:
     build: .
     volumes:
-      - .:/app
+      - .:/noheat
+    links:
+      - db
+      - apollo
     ports:
+      - 8080:8080
       - 80:3000
       - 3000:3000
